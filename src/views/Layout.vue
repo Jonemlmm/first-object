@@ -22,6 +22,10 @@
           <upload-outlined />
           <span>腾讯地图</span>
         </a-menu-item>
+        <a-menu-item key="5" @click="goto('/gmap')">
+          <upload-outlined />
+          <span>高德地图</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>

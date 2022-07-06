@@ -68,6 +68,16 @@ export default {
   mounted() {
     this.init();
     setInterval(() => {
+      var anchor = new qq.maps.Point(6, 6),
+        size = new qq.maps.Size(24, 24),
+        origin = new qq.maps.Point(0, 0),
+        icon = new qq.maps.MarkerImage(
+          "https://mapapi.qq.com/web/lbs/javascriptV2/demo/img/center.gif",
+          size,
+          origin,
+          anchor
+        );
+
       var marker = new qq.maps.Marker({
         //设置Marker的位置坐标
         position: new qq.maps.LatLng(
@@ -76,6 +86,7 @@ export default {
         ),
         //设置显示Marker的地图
         map: this.map,
+        icon: icon,
       });
       var text = [
         "发生交通事故",

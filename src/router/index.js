@@ -53,6 +53,14 @@ const routes = [
         },
         component: () => import("../views/tmap/TMap"),
       },
+      {
+        path: "/gmap",
+        name: "gmap",
+        meta: {
+          title: "高德地图",
+        },
+        component: () => import("../views/gmap/GMap"),
+      },
     ],
   },
 ];
