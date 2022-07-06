@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "jsx": "preserve",// 去除波浪线
     "module": "esnext",
     "baseUrl": "./",
     "moduleResolution": "node",

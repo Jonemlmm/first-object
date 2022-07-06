@@ -1,25 +1,79 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+// 导入路由器插件createRouter,createWebHistory 方法
+import { createRouter, createWebHistory } from "vue-router";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
+// 定义路由规则
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "login",
+    meta: {
+      title: "登录",
+    },
+    component: () => import("../views/Login"),
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+    path: "/layout",
+    name: "layout",
+    meta: {
+      title: "首页",
+    },
+    component: () => import("../views/Layout"),
+    children: [
+      {
+        path: "/car-manager",
+        name: "carManager",
+        meta: {
+          title: "汽车管理",
+        },
+        component: () => import("../views/car/CarManager"),
+      },
+      {
+        path: "/lib-manager",
+        name: "libManager",
+        meta: {
+          title: "入库管理",
+        },
+        component: () => import("../views/lib/LibManager"),
+      },
+      {
+        path: "/order-manager",
+        name: "orderManager",
+        meta: {
+          title: "订单管理",
+        },
+        component: () => import("../views/order/OrderManager"),
+      },
+      {
+        path: "/tmap",
+        name: "tmap",
+        meta: {
+          title: "腾讯地图",
+        },
+        component: () => import("../views/tmap/TMap"),
+      },
+    ],
+  },
+];
 
+// 创建一个路由器
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+// 前置路由守卫
+router.beforeEach((to, from, next) => {
+  NProgress.start();
+  next();
+});
+
+// 后置路由守卫
+router.afterEach((to, from) => {
+  document.title = to.meta.title;
+  NProgress.done();
+});
+
+// 导出路由器
+export default router;
